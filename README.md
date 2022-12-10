@@ -1,4 +1,4 @@
 # Bananya-2077
-Yes
+Yes,
 I like men.
-why are you asking?
+Why are you asking?
