@@ -34,28 +34,12 @@ public class PlayesMove : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
     }
 
-
-    // private int doubleJump = 1;
-
     private bool doubleJump = true;
     // Update is called once per frame
     private void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal"); //GetAxisRaw мнгновенно возвращается к 0, а GetAxis постепенно
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
-
-        //if (Input.GetButtonDown("Jump") && doubleJump > 0)
-        //{
-        //        rb.velocity = new Vector2(0, jumpForce);
-        //        doubleJump--;
-        //        Debug.Log("Пыржок " + doubleJump);
-        //}
-
-        //if (isGrounded())
-        //{
-        //    doubleJump = 1;
-        //}
-
 
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
