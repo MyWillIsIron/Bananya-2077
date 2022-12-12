@@ -2,4 +2,3 @@
 Yes,
 I like men.
 Why are you asking?
-YES
