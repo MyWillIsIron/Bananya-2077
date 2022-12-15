@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D playerBody;
-    private Animator animator;
+    private Rigidbody2D rb;
+    private Animator anim;
     private SpriteRenderer sprite;
 
     private float horizontalDirection;
@@ -36,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpingDuration = 0.05f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+    [SerializeField] private TrailRenderer tailDash;
+
     private enum MovementState { idle, run, jump, falling }; // Делаем переменную которая имеет все типы анимации, чтобы не писть кучу когда, т.к не может работать сразу 2 анимации падения и бега.
                                                              // private MovementState state = MovementState.idle; // по умолчанию анимация афк
 
@@ -43,15 +50,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        playerBody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
     }
+
     private void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         if (!isWallJumping)
         { 
-            playerBody.velocity = new Vector2(moveSpeed * horizontalDirection, playerBody.velocity.y); 
+            rb.velocity = new Vector2(moveSpeed * horizontalDirection, rb.velocity.y); 
         }
     }
 
@@ -60,23 +73,29 @@ public class PlayerMovement : MonoBehaviour
         if ((horizontalDirection > 0f && isFacingRight == false) || (horizontalDirection < 0f && isFacingRight == true))
         {
             isFacingRight = !isFacingRight;
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
 
         }
     }
 
     private void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         Jumps();
         ExtraJump();
         WallSLide();
         WallJump();
+        Dashing();
 
         if (!isWallJumping)
         {
             Flip();
         }
-        //UpdateAnimationState();
+        UpdateAnimationState();
     }
 
     private void Jumps()
@@ -86,31 +105,30 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true)
         {
             jumpSoundEffect.Play();
-            playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && playerBody.velocity.y > 0)
+        if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0)
         {
-            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y * 0.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
-
 
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(checkground.position, checkJumpRadius, whatIsGround);
     }
 
-    void ExtraJump()
+    private void ExtraJump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0 && IsGrounded() == false)
         {
-            playerBody.velocity = new Vector2(playerBody.velocity.x, extraJumpsForce);
+            rb.velocity = new Vector2(rb.velocity.x, extraJumpsForce);
             extraJumps--;
         }
         else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && IsGrounded() == true)
         {
-            playerBody.velocity = new Vector2(playerBody.velocity.x, extraJumpsForce);
+            rb.velocity = new Vector2(rb.velocity.x, extraJumpsForce);
         }
         if (IsGrounded() || IsWalled())
         {
@@ -128,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled() && !IsGrounded() && horizontalDirection != 0f)
         {
             isWallSliding = true;
-            playerBody.velocity = new Vector2(playerBody.velocity.x, Mathf.Clamp(playerBody.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
         {
@@ -155,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f)
         {
             isWallJumping = true;
-            playerBody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
             if (transform.localScale.x != wallJumpingDirection)
@@ -173,48 +191,65 @@ public class PlayerMovement : MonoBehaviour
         isWallJumping = false;
     }
 
-    //private void UpdateAnimationState()
-    //{
-    //    MovementState state;
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f); //transform.localScale.y * dashingPower
+        tailDash.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        tailDash.emitting = false;
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
 
-    //    if (dirX > 0f)
-    //    {
-    //        state = MovementState.run;
-    //     //   sprite.flipX = false;
+    private void Dashing()
+    {
+        if ((Input.GetKeyDown(KeyCode.LeftShift)) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+    }
 
-    //    }
-    //    else if (dirX < 0f)
-    //    {
-    //        state = MovementState.run;
-    //      //  sprite.flipX = true;
-    //    }
-    //    else
-    //    {
-    //        state = MovementState.idle;
-    //    }
+    private void UpdateAnimationState()
+    {
+        MovementState state;
 
-    //    if (rb.velocity.y > .01f)
-    //    {
-    //        state = MovementState.jump;
-    //    }
-    //    else if (rb.velocity.y < -.01f)
-    //    {
-    //        state = MovementState.falling;
-    //    }
+        if (horizontalDirection > 0f)
+        {
+            state = MovementState.run;
+            //   sprite.flipX = false;
 
-    //    anim.SetInteger("state", (int)state);
-    //}
-    //private CircleCollider2D coll;
-    //private bool isGrounded()
-    //{
-    //    // создаем коробку размером с бокс перса и опускам на 1 ниже чтобы этим кусоком касался перс земли. 
-    //    return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, whatIsGround);
+        }
+        else if (horizontalDirection < 0f)
+        {
+            state = MovementState.run;
+            //  sprite.flipX = true;
+        }
+        else
+        {
+            state = MovementState.idle;
+        }
 
-    //}
+        if (rb.velocity.y > .01f)
+        {
+            state = MovementState.jump;
+        }
+        else if (rb.velocity.y < -.01f)
+        {
+            state = MovementState.falling;
+        }
+
+        anim.SetInteger("state", (int)state);
+    }
 
     public bool IsDeath()
     {
-        return playerBody.bodyType != RigidbodyType2D.Static;
+        return rb.bodyType != RigidbodyType2D.Static;
     }
 
 }
