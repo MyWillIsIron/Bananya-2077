@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayesMove : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
-    //тест, что работает гитхаб
+
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sprite;
 
-    private BoxCollider2D coll;
+    //private BoxCollider2D coll;
+    private CircleCollider2D coll;
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
 
     [SerializeField] private LayerMask jumpableGround;
+
     //    [SerializeField] дл€ внесени€ изменений черз юнити
 
 
@@ -31,17 +33,20 @@ public class PlayesMove : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
 
-        coll = GetComponent<BoxCollider2D>();
+//        coll = GetComponent<BoxCollider2D>();
+        coll = GetComponent<CircleCollider2D>();
     }
 
 
     // private int doubleJump = 1;
 
     private bool doubleJump = true;
-    // Update is called once per frame
+
     private void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal"); //GetAxisRaw мнгновенно возвращаетс€ к 0, а GetAxis постепенно
+
+        if (isDeath()) 
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
 
         //if (Input.GetButtonDown("Jump") && doubleJump > 0)
@@ -57,12 +62,23 @@ public class PlayesMove : MonoBehaviour
         //}
 
 
+        //Flip player when moving left-right
+        if (dirX > 0.01f)
+            transform.localScale = Vector3.one;
+        else if (dirX < -0.01f)
+            transform.localScale = new Vector3(-1, 1, 1);
+
+
+
+
+
+
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             jumpSoundEffect.Play();
             rb.velocity = new Vector2(0, jumpForce);
           
-            Debug.Log("ѕыржок 1 " + doubleJump);
+           
         }
         if (Input.GetButtonDown("Jump") && !isGrounded() && doubleJump)
         {
@@ -70,7 +86,7 @@ public class PlayesMove : MonoBehaviour
             rb.velocity = new Vector2(0, jumpForce);
 
             doubleJump = false;
-            Debug.Log("ѕыржок 2 " + doubleJump);
+           
         }
         if (isGrounded())
         {
@@ -91,13 +107,13 @@ public class PlayesMove : MonoBehaviour
         if (dirX > 0f)
         {
             state = MovementState.run;
-            sprite.flipX = false;
+         //   sprite.flipX = false;
 
         }
         else if (dirX < 0f)
         {
             state = MovementState.run;
-            sprite.flipX = true;
+          //  sprite.flipX = true;
         }
         else
         {
@@ -121,6 +137,11 @@ public class PlayesMove : MonoBehaviour
         // создаем коробку размером с бокс перса и опускам на 1 ниже чтобы этим кусоком касалс€ перс земли. 
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
 
+    }
+
+    public bool isDeath()
+    {
+        return rb.bodyType != RigidbodyType2D.Static;
     }
 
 }

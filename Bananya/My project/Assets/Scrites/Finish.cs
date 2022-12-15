@@ -10,7 +10,6 @@ public class Finish : MonoBehaviour
     private Animator anim;
     private AudioSource finishSound;
     private bool levelCompleted = false;
-    // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
