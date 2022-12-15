@@ -9,18 +9,18 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject fireballs;
     private Animator anim;
-    private PlayerMove PlayerMove;
+    private PlayerMovement playerMovement;
     private float cooldownTimer = Mathf.Infinity;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        PlayerMove = GetComponent<PlayerMove>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && cooldownTimer > attackCooldown && PlayerMove.isDeath())
+        if (Input.GetMouseButton(0) && cooldownTimer > attackCooldown && playerMovement.IsDeath())
             Attack();
 
         cooldownTimer += Time.deltaTime;
