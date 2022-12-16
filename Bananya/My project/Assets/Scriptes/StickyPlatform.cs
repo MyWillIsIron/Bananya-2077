@@ -15,7 +15,7 @@ public class StickyPlatform : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player") // если платформа столнется с какимто коладером и если он = плэеру то сработает 
+        if (collision.gameObject.name == "Player") 
         {
             collision.gameObject.transform.SetParent(null);
         }
