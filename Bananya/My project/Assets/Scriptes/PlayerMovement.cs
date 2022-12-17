@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     [SerializeField] private TrailRenderer tailDash;
+    [SerializeField] private AudioSource source;
 
     private enum MovementState { idle, run, jump, falling }; // Делаем переменную которая имеет все типы анимации, чтобы не писть кучу когда, т.к не может работать сразу 2 анимации падения и бега.
                                                              // private MovementState state = MovementState.idle; // по умолчанию анимация афк
@@ -57,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(horizontalDirection);
         if (isDashing)
         {
             return;
@@ -64,7 +66,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isWallJumping)
         { 
-            rb.velocity = new Vector2(moveSpeed * horizontalDirection, rb.velocity.y); 
+            rb.velocity = new Vector2(moveSpeed * horizontalDirection, rb.velocity.y);
+            
+
+        }
+        if (horizontalDirection==1 || horizontalDirection == -1)
+        {
+            source.Play();
         }
     }
 
@@ -97,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
         UpdateAnimationState();
     }
+    
 
     private void Jumps()
     {
