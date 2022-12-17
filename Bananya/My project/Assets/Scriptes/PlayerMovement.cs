@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
+   
     private float horizontalDirection;
     [SerializeField] private float moveSpeed = 7f;
 
@@ -84,7 +85,9 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-
+        horizontalDirection = Input.GetAxis("Horizontal");
+        
+        Debug.Log(horizontalDirection);
         Jumps();
         ExtraJump();
         WallSLide();
@@ -100,15 +103,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jumps()
     {
-        horizontalDirection = Input.GetAxisRaw("Horizontal");
+        
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && IsGrounded() == true)
         {
             jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0)
+        if (Input.GetKeyUp(KeyCode.JoystickButton0) && rb.velocity.y > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
@@ -121,12 +124,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void ExtraJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0 && IsGrounded() == false)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && extraJumps > 0 && IsGrounded() == false)
         {
             rb.velocity = new Vector2(rb.velocity.x, extraJumpsForce);
             extraJumps--;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && IsGrounded() == true)
+        else if (Input.GetKeyDown(KeyCode.JoystickButton0) && extraJumps == 0 && IsGrounded() == true)
         {
             rb.velocity = new Vector2(rb.velocity.x, extraJumpsForce);
         }
@@ -170,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && wallJumpingCounter > 0f)
         {
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
@@ -209,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dashing()
     {
-        if ((Input.GetKeyDown(KeyCode.LeftShift)) && canDash)
+        if ((Input.GetKeyDown(KeyCode.JoystickButton5)) && canDash)
         {
             StartCoroutine(Dash());
         }
