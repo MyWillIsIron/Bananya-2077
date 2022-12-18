@@ -252,4 +252,25 @@ public class PlayerMovement : MonoBehaviour
         return rb.bodyType != RigidbodyType2D.Static;
     }
 
+
+
+
+
+
+
+
+
+    //Замедление при домаге
+    private void DamageSlowingDown()
+    {
+        moveSpeed = 3f;
+        Debug.Log("Зачем работает" + moveSpeed);
+    }
+
+    private void DamageSlowingDownOff()
+    {
+        moveSpeed = 7f;
+        Debug.Log("Зачем работать " + moveSpeed);
+    }
+
 }

@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-      //anim.SetTrigger("attack");
+      anim.SetTrigger("Player_attack");
       cooldownTimer = 0;
 
       GameObject fireballsMake = Instantiate(fireballs, firePoint.position, transform.rotation);
