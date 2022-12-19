@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,48 +20,13 @@ public class PlayerLife : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-  
-
-    // Пила с колизии ей
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Trap"))
-    //    {
-    //        health--;
-    //        Debug.Log(health);
-    //        if(health <= 0)
-    //        {
-    //            deathSoundEffect.Play();
-    //            Die();
-    //        }
-
-    //    }
-    //}
-
-    // Пила без колизии через тригеер
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Trap"))
-    //    {
-    //        health--;
-    //        Debug.Log(health);
-    //        if (health <= 0)
-    //        {
-    //            deathSoundEffect.Play();
-    //            Die();
-    //        }
-
-    //    }
-    //}
-
-    // Урон от шипов
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("TrapSpike"))
-       { 
-                deathSoundEffect.Play();
-                health -= health;
-                Die();
+        {
+            deathSoundEffect.Play();
+            health -= health;
+            Die();
         }
     }
 
@@ -73,17 +40,34 @@ public class PlayerLife : MonoBehaviour
         if (health <= 0)
         {
             deathSoundEffect.Play();
+
             Die();
-        } else
+        } 
+        else
         {
             // Анимация урона
-            anim.SetTrigger("Player_TakeDamage");
+            //anim.SetTrigger("Player_TakeDamage");
+            Slowing();
         }
 
     }
 
+    private IEnumerator damageSlowing()
+    {
+        //PlayerMovement speed = new PlayerMovement();
+        PlayerMovement speed = GetComponent<PlayerMovement>();
+        //Physics2D.IgnoreLayerCollision(10, 11, true);
+        float originalSpeed = speed.MoveSpeed;
+        speed.MoveSpeed = originalSpeed / 2;
+        yield return new WaitForSeconds(0.3f);
+        speed.MoveSpeed = originalSpeed;
+        //Physics2D.IgnoreLayerCollision(10, 11, false);
+    }
 
-
+    private void Slowing()
+    {
+        StartCoroutine(damageSlowing());
+    }
 
     private void Die()
     {
