@@ -9,7 +9,7 @@ public class PlayerLife : MonoBehaviour
     private Animator anim;
     [SerializeField] private AudioSource deathSoundEffect;
 
-    public int health = 3;
+    public int health { get; private set; } = 3;
 
 
     private void Start()
@@ -17,46 +17,10 @@ public class PlayerLife : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
-
-  
-
-    // Пила с колизии ей
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Trap"))
-    //    {
-    //        health--;
-    //        Debug.Log(health);
-    //        if(health <= 0)
-    //        {
-    //            deathSoundEffect.Play();
-    //            Die();
-    //        }
-
-    //    }
-    //}
-
-    // Пила без колизии через тригеер
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Trap"))
-    //    {
-    //        health--;
-    //        Debug.Log(health);
-    //        if (health <= 0)
-    //        {
-    //            deathSoundEffect.Play();
-    //            Die();
-    //        }
-
-    //    }
-    //}
-
-    // Урон от шипов
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("TrapSpike"))
-       { 
+        { 
                 deathSoundEffect.Play();
                 health -= health;
                 Die();
@@ -82,20 +46,14 @@ public class PlayerLife : MonoBehaviour
 
     }
 
-
-
-
     private void Die()
     {
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
     }
-
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-
- 
 }
