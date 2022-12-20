@@ -77790,22 +77790,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6695464582603279256, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6695464582603279256, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6695464582603279256, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6695464582603279256, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6695464582603279257, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -77858,13 +77842,5 @@ PrefabInstance:
       propertyPath: orangeText
       value: 
       objectReference: {fileID: 1193534992}
-    - target: {fileID: 6695464582603279261, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
-      propertyPath: iFramesDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6695464582603279261, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
-      propertyPath: numberOfFlashes
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cbb0eb93c1fd6542a7baaffb3ef5f56, type: 3}
