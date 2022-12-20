@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class SawDamage : MonoBehaviour
 {
     private int damage = 1;
-    private float damageCooldown = 5.45f;
+    private float damageCooldown = 0.45f;
     private float cooldownTimer = Mathf.Infinity;
 
     private void FixedUpdate()
@@ -21,32 +21,20 @@ public class SawDamage : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            coll = collision;
-            damageOn = true;
+            if (cooldownTimer > damageCooldown)
+            {
+                cooldownTimer = 0;
 
-            collision.gameObject.GetComponent<PlayerLife>().TakeDamage(damage);
-
-           
+                collision.gameObject.GetComponent<PlayerLife>().TakeDamage(damage);
+            }
         }
     }
-
-    private void goHit ()
-    {
-        if (cooldownTimer > damageCooldown)
-        {
-            cooldownTimer = 0;
-
-            coll.gameObject.GetComponent<PlayerLife>().TakeDamage(damage);
-        }
-    }
-
-
-
-
-
+}
 
     
-}
+
+    
+
 
 
     //private void OnTriggerEnter2D(Collider2D collision)
@@ -70,20 +58,7 @@ public class SawDamage : MonoBehaviour
 
 
 
-    //Работает по колизии
-//    private void OnCollisionEnter2D(Collision2D collision)
-//    {
-//        if (collision.gameObject.name == "Player")
-//       {
-//             if (cooldownTimer > damageCooldown)
-//            {
-//                cooldownTimer = 0;
-
-//                collision.gameObject.GetComponent<PlayerLife>().TakeDamage(damage);
-//            }
-//        }
-//    }
-//}
+    
 
 
 
