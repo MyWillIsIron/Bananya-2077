@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 2361310249746452711}
   - component: {fileID: 1554460702}
   - component: {fileID: 7470286921808487172}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.031811476, y: 0.13359582}
+  m_Offset: {x: -0.031811714, y: 0.13359582}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -270,7 +270,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4273419, y: 0.7970176}
+  m_Size: {x: 1.4185667, y: 0.7970176}
   m_EdgeRadius: 0
 --- !u!114 &6695464582603279258
 MonoBehaviour:
@@ -333,7 +333,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orangeText: {fileID: 0}
-  collectorSoundEffect: {fileID: 6695464582603279263}
+  collectorOrangeSound: {fileID: 0}
+  collectorHearthSound: {fileID: 0}
+  playerHeath: {fileID: 6695464582603279261}
 --- !u!114 &6695464582603279261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +349,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathSoundEffect: {fileID: 6695464582603279248}
-  starthealth: 3
+  numberOfFlashes: 0
+  iFramesDuration: 0
+  health: 3
+  healthMax: 0
 --- !u!82 &6695464582603279262
 AudioSource:
   m_ObjectHideFlags: 0

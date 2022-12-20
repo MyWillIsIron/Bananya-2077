@@ -15,6 +15,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private float iFramesDuration;
 
     public int health = 3;
+    public int healthMax;
 
 
     private void Start()
@@ -22,6 +23,7 @@ public class PlayerLife : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRend = GetComponent<SpriteRenderer>();
+        healthMax = health;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,7 +54,7 @@ public class PlayerLife : MonoBehaviour
             // Анимация урона
             anim.SetTrigger("Player_TakeDamage");
             StartCoroutine(damageSlowing());
-          
+            
         }
 
     }
@@ -66,6 +68,12 @@ public class PlayerLife : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void AddHealth()
+    {
+        if (health < healthMax)
+        health++;
     }
 
     private IEnumerator damageSlowing()
@@ -95,6 +103,8 @@ public class PlayerLife : MonoBehaviour
     }
 
  
+
+
 
 
 }

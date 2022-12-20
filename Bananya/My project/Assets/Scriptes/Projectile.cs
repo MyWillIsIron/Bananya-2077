@@ -83,7 +83,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player" || collision.gameObject.CompareTag("item") || collision.gameObject.CompareTag("Orange"))
+        if (collision.gameObject.name == "Player" || collision.gameObject.CompareTag("item") || collision.gameObject.CompareTag("Orange") || collision.gameObject.CompareTag("HearthItem"))
         {
             hit = false;
             boxCollider.enabled = true;

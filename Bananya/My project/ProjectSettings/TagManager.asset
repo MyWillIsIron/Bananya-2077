@@ -9,6 +9,7 @@ TagManager:
   - item
   - Enemy
   - TrapSpike
+  - HearthItem
   layers:
   - Default
   - TransparentFX
@@ -38,8 +39,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - TrapTrigger
+  - Player
   - Enemies
   - 
   m_SortingLayers:

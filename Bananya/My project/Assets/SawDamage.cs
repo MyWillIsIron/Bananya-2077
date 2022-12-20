@@ -5,7 +5,7 @@ using UnityEngine;
 public class SawDamage : MonoBehaviour
 {
     private int damage = 1;
-    private float damageCooldown = 0.25f;
+    private float damageCooldown = 0.23f;
     private float cooldownTimer = Mathf.Infinity;
 
     private void Update()
@@ -23,10 +23,18 @@ public class SawDamage : MonoBehaviour
                 cooldownTimer = 0;
                 //звук резки
                 collision.GetComponent<PlayerLife>().TakeDamage(damage);
+                StartCoroutine(imortalPlayer());
             }
        
 
         }
+    }
+
+    IEnumerator imortalPlayer()
+    {
+        Physics2D.IgnoreLayerCollision(28, 29, true);
+        yield return new WaitForSeconds(0.24f);
+        Physics2D.IgnoreLayerCollision(28, 29, false);
     }
 
     //Работает по колизии
