@@ -46,13 +46,13 @@ public class PlayerLife : MonoBehaviour
             deathSoundEffect.Play();
 
             Die();
-        } 
+        }
         else
         {
             // Анимация урона
             anim.SetTrigger("Player_TakeDamage");
             StartCoroutine(damageSlowing());
-          
+            //StartCoroutine(immortalTime());
         }
 
     }
@@ -94,7 +94,8 @@ public class PlayerLife : MonoBehaviour
 
     }
 
- 
+
+  
 
 
 }
