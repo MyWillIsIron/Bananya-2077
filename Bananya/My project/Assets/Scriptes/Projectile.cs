@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void SetDirection(float _direction)
+    public void SetDirection(float _direction) // сторона запуска 
     {
         lifetime = 0;
         direction = _direction;
@@ -46,14 +46,10 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-
-
         if (hit) return;
         float movementSpeed = speed * Time.deltaTime * -direction;
         transform.Translate(-movementSpeed, 0, 0);
         
-
-
         if (direction == 1)
         {
             sprite.flipX = true;
@@ -63,56 +59,45 @@ public class Projectile : MonoBehaviour
              sprite.flipX = false;
         }
 
-
-
         lifetime += Time.deltaTime;
         if (lifetime> 5) {
             Destroy(gameObject);
         }
-
-
 
         if (gameObject.CompareTag("Enemy")){
             Debug.Log('1');
             gameObject.GetComponent<Enemy>().TakeDamage(damage);
            
         }
-
     }
-   
-
+ 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player" || collision.gameObject.CompareTag("item") || collision.gameObject.CompareTag("Orange"))
         {
             hit = false;
             boxCollider.enabled = true;
-        } else
+        } 
+        else
         {
             hit = true;
             boxCollider.enabled = false;
 
             anim.SetTrigger("exp");
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
         }
         
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
-            hit = true;
-            boxCollider.enabled = false;
-        }
-       
-       
-       
+        //if (collision.gameObject.CompareTag("Enemy"))
+        //{
+        //    collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+        //    hit = true;
+        //    boxCollider.enabled = false;
+        //}
     }
 
-   
     private void Deactivate()
     {
         Destroy(gameObject);
 
     }
-    
-    
-    
 }

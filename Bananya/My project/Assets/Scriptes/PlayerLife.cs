@@ -45,8 +45,6 @@ public class PlayerLife : MonoBehaviour
         } 
         else
         {
-            // Анимация урона
-            //anim.SetTrigger("Player_TakeDamage");
             Slowing();
         }
 
@@ -79,7 +77,4 @@ public class PlayerLife : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-
- 
 }
