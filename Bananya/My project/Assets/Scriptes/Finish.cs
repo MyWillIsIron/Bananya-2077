@@ -10,7 +10,7 @@ public class Finish : MonoBehaviour
     private Animator anim;
     private AudioSource finishSound;
     private bool levelCompleted = false;
-    void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         finishSound = GetComponent<AudioSource>();
@@ -31,7 +31,6 @@ public class Finish : MonoBehaviour
 
     private void CompleteLevel()
     {
-       
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
  }

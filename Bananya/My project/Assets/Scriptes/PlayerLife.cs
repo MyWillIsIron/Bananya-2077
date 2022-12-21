@@ -14,11 +14,11 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private int numberOfFlashes;
     [SerializeField] private float iFramesDuration;
 
-    public int health = 3;
+    [SerializeField] public int health = 3;
     public int healthMax;
 
 
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -36,17 +36,12 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-
     public void TakeDamage(int damage)
     {
         health -= damage;
-
-        Debug.Log(health);
-
         if (health <= 0)
         {
             deathSoundEffect.Play();
-
             Die();
         } 
         else
@@ -57,6 +52,11 @@ public class PlayerLife : MonoBehaviour
             
         }
 
+    }
+    public void AddHealth()
+    {
+        if (health < healthMax)
+            health++;
     }
 
     private void Die()
@@ -70,11 +70,7 @@ public class PlayerLife : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void AddHealth()
-    {
-        if (health < healthMax)
-        health++;
-    }
+
 
     private IEnumerator damageSlowing()
     {
@@ -89,22 +85,10 @@ public class PlayerLife : MonoBehaviour
 
         for (int i = 0; i < numberOfFlashes; i++)
         {
-
-            spriteRend.color = new Color(1, 1, 1, 0.6509804f);
+            spriteRend.color = new Color(1, 1, 1, 0.509804f);
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
             spriteRend.color = Color.white;
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
-
-
         }
-
-
-
     }
-
- 
-
-
-
-
 }

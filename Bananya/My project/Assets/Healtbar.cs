@@ -10,11 +10,6 @@ public class Healtbar : MonoBehaviour
     [SerializeField] private PlayerLife playerHeath;
     [SerializeField] private Image totalhealthbar;
     [SerializeField] private Image currenthealthbar;
-
-    // Start is called before the first frame update
-
-    // Update is called once per frame
-
     private void Start()
     {
         float healthStart = playerHeath.health;

@@ -257,16 +257,4 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    //private void DamageSlowingDown()
-    //{
-    //    moveSpeed = 3f;
-    //    Debug.Log("Зачем работает" + moveSpeed);
-    //}
-
-    //private void DamageSlowingDownOff()
-    //{
-    //    moveSpeed = 7f;
-    //    Debug.Log("Зачем работать " + moveSpeed);
-    //}
-
 }
