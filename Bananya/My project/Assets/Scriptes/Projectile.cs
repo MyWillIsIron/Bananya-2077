@@ -61,7 +61,13 @@ public class Projectile : MonoBehaviour
         {
             hit = true;
             boxCollider.enabled = false;
-            anim.SetTrigger("exp");
+            if (collision.gameObject.tag == "Arrow")
+            {
+                Destroy(gameObject);
+            } else
+            {
+                anim.SetTrigger("exp");
+            }
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);

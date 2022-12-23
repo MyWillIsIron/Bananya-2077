@@ -13,6 +13,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private AudioSource deathSoundEffect;
     [SerializeField] private int numberOfFlashes;
     [SerializeField] private float iFramesDuration;
+    [SerializeField] GameObject legsCollider;
 
     [SerializeField] public int health = 3;
     public int healthMax;
@@ -30,7 +31,6 @@ public class PlayerLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("TrapSpike"))
         {
-            deathSoundEffect.Play();
             health -= health;
             Die();
         }
@@ -39,16 +39,20 @@ public class PlayerLife : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0)
+       
+        if (health <= 0 )
         {
-            deathSoundEffect.Play();
-            Die();
+            Die();    
         } 
         else
         {
             // Анимация урона
             anim.SetTrigger("Player_TakeDamage");
-            StartCoroutine(damageSlowing());
+            if (car)
+            {
+                StartCoroutine(damageSlowing());
+            }
+            
             
         }
 
@@ -61,8 +65,11 @@ public class PlayerLife : MonoBehaviour
 
     private void Die()
     {
-        rb.bodyType = RigidbodyType2D.Static;
+        deathSoundEffect.Play();
         anim.SetTrigger("death");
+        rb.bodyType = RigidbodyType2D.Static;
+       GetComponent<CircleCollider2D>().enabled = false;
+       legsCollider.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     private void RestartLevel()
@@ -70,10 +77,11 @@ public class PlayerLife : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-
+    private bool car = true;
 
     private IEnumerator damageSlowing()
     {
+        car = false;
         //PlayerMovement speed = new PlayerMovement();
         PlayerMovement speed = GetComponent<PlayerMovement>();
         //Physics2D.IgnoreLayerCollision(10, 11, true);
@@ -90,5 +98,6 @@ public class PlayerLife : MonoBehaviour
             spriteRend.color = Color.white;
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
+        car = true;
     }
 }

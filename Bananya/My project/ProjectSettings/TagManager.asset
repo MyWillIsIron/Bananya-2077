@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - TrapSpike
   - HearthItem
+  - Arrow
   layers:
   - Default
   - TransparentFX

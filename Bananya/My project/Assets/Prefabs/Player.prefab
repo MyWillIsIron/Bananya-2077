@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.025474072, y: -0.9170725}
+  m_Offset: {x: 0.033602, y: -0.8806684}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.94905186, y: 0.1385076}
+  m_Size: {x: 0.9286952, y: 0.21131575}
   m_EdgeRadius: 0
 --- !u!1 &634238249
 GameObject:
@@ -384,6 +384,7 @@ MonoBehaviour:
   deathSoundEffect: {fileID: 6695464582603279248}
   numberOfFlashes: 2
   iFramesDuration: 0.5
+  legsCollider: {fileID: 91939967}
   health: 3
   healthMax: 0
 --- !u!82 &6695464582603279262
@@ -702,9 +703,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03235054, y: -0.28204077}
+  m_Offset: {x: 0.0058443546, y: -0.22760975}
   serializedVersion: 2
-  m_Radius: 0.71580833
+  m_Radius: 0.7011516
 --- !u!96 &1554460702
 TrailRenderer:
   serializedVersion: 2

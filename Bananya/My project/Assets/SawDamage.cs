@@ -26,20 +26,19 @@ public class SawDamage : MonoBehaviour
                 //Добавить звук резки
                 cooldownTimer = 0;
                 collision.GetComponent<PlayerLife>().TakeDamage(damage);
-                //StartCoroutine(imortalPlayer());
+                StartCoroutine(imortalPlayer());
            }
        
 
         }
     }
 
-    // При сборе айтемов замедление тогда не сподает елси юзать карутину.
-    //IEnumerator imortalPlayer()
-    //{
-    //    Physics2D.IgnoreLayerCollision(28, 29, true);
-    //    yield return new WaitForSeconds(0.24f);
-    //    Physics2D.IgnoreLayerCollision(28, 29, false);
-    //}
+    IEnumerator imortalPlayer()
+    {
+        Physics2D.IgnoreLayerCollision(28, 29, true);
+        yield return new WaitForSeconds(0.24f);
+        Physics2D.IgnoreLayerCollision(28, 29, false);
+    }
 
 
 
