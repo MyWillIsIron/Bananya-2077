@@ -70,7 +70,7 @@ public class Projectile : MonoBehaviour
             }
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+                //collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             }
         }
        
