@@ -42,7 +42,7 @@ TagManager:
   - 
   - TrapTrigger
   - Player
-  - Enemies
+  - Enemy
   - 
   m_SortingLayers:
   - name: Background

@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Health : MonoBehaviour
 {
-    [Header ("Health")]
+    [Header("Health")]
     [SerializeField] private float startingHealth;
+
     public float currentHealth { get; private set; }
     private Animator anim;
     private bool dead;

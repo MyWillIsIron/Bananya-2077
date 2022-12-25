@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class oldPlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalDirection;
     [SerializeField] private float moveSpeed;
     public float MoveSpeed
-    { 
+    {
         get { return moveSpeed; }
         set { moveSpeed = value; }
     }
@@ -69,8 +69,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!isWallJumping)
-        { 
-            rb.velocity = new Vector2(moveSpeed * horizontalDirection, rb.velocity.y); 
+        {
+            rb.velocity = new Vector2(moveSpeed * horizontalDirection, rb.velocity.y);
         }
     }
 
@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
             CancelInvoke(nameof(StopWallJumping));
         }
 
-        else 
+        else
         {
             wallJumpingCounter -= Time.deltaTime;
         }
@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void StopWallJumping()
-    { 
+    {
         isWallJumping = false;
     }
 
@@ -255,6 +255,4 @@ public class PlayerMovement : MonoBehaviour
     {
         return rb.bodyType != RigidbodyType2D.Static;
     }
-
-
 }

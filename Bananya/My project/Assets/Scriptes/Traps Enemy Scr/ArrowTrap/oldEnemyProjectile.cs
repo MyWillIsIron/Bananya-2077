@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour
+public class oldEnemyProjectile : MonoBehaviour
 {
 
     [SerializeField] private float speed = 1;
@@ -34,9 +34,4 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.gameObject.name == "Player" )
             collision.GetComponent<PlayerLife>().TakeDamage(damage);
     }
-
-
-
-
-
 }

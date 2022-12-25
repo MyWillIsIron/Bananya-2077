@@ -39,11 +39,11 @@ public class PlayerLife : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-       
-        if (health <= 0 )
+
+        if (health <= 0)
         {
-            Die();    
-        } 
+            Die();
+        }
         else
         {
             // Анимация урона
@@ -52,8 +52,8 @@ public class PlayerLife : MonoBehaviour
             {
                 StartCoroutine(damageSlowing());
             }
-            
-            
+
+
         }
 
     }
@@ -68,8 +68,8 @@ public class PlayerLife : MonoBehaviour
         deathSoundEffect.Play();
         anim.SetTrigger("death");
         rb.bodyType = RigidbodyType2D.Static;
-       GetComponent<CircleCollider2D>().enabled = false;
-       legsCollider.GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        legsCollider.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     private void RestartLevel()
@@ -83,7 +83,7 @@ public class PlayerLife : MonoBehaviour
     {
         car = false;
         //PlayerMovement speed = new PlayerMovement();
-        PlayerMovement speed = GetComponent<PlayerMovement>();
+        oldPlayerMovement speed = GetComponent<oldPlayerMovement>();
         //Physics2D.IgnoreLayerCollision(10, 11, true);
         float originalSpeed = speed.MoveSpeed;
         speed.MoveSpeed = originalSpeed / 2;

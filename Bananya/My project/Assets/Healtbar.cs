@@ -7,18 +7,15 @@ using System;
 public class Healtbar : MonoBehaviour
 {
 
-    [SerializeField] private PlayerLife playerHeath;
+    [SerializeField] private Health health;
     [SerializeField] private Image totalhealthbar;
     [SerializeField] private Image currenthealthbar;
-    private void Start()
-    {
-        float healthStart = playerHeath.health;
-        totalhealthbar.fillAmount = healthStart / 10;
-    }
+    //private void Start()
+    //{
+    //    totalhealthbar.fillAmount = health.currentHealth / 10;
+    //}
     private void Update()
     {
-        float health = playerHeath.health;
-
-        currenthealthbar.fillAmount = health / 10;  
+        currenthealthbar.fillAmount = health.currentHealth / 10;  
     }
 }
