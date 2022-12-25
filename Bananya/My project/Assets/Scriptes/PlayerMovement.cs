@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -36,29 +37,33 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpingDuration = 0.05f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
+    private IEnumerator coroutine;
     private bool canDash = true;
     private bool isDashing;
     private float dashingPower = 24f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     [SerializeField] private TrailRenderer tailDash;
-    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource audioRun;
+    [SerializeField] private AudioSource audioJump;
+    [SerializeField] private AudioSource audioDash;
 
     private enum MovementState { idle, run, jump, falling }; // Делаем переменную которая имеет все типы анимации, чтобы не писть кучу когда, т.к не может работать сразу 2 анимации падения и бега.
                                                              // private MovementState state = MovementState.idle; // по умолчанию анимация афк
 
-    [SerializeField] private AudioSource jumpSoundEffect; // подключаем звуковые эффекты
+     
 
     private void Start()
     {
+        
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
     }
-
+   
     private void FixedUpdate()
     {
-        Debug.Log(horizontalDirection);
+        
         if (isDashing)
         {
             return;
@@ -70,10 +75,22 @@ public class PlayerMovement : MonoBehaviour
             
 
         }
-        if (horizontalDirection==1 || horizontalDirection == -1)
+        if (audioRun.isPlaying==false )
         {
-            source.Play();
+           
+            if (horizontalDirection != 0)
+            {
+                audioRun.Play();
+                ///coroutine = waiter;
+                StartCoroutine(coroutine);
+
+            }
         }
+        
+    }
+    private IEnumerator waiter()
+    {
+        yield return new WaitForSeconds(2);
     }
 
     void Flip()
@@ -104,16 +121,22 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
         UpdateAnimationState();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            audioJump.Play();
+        }
     }
     
 
     private void Jumps()
     {
         horizontalDirection = Input.GetAxisRaw("Horizontal");
+        
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true)
         {
-            jumpSoundEffect.Play();
+            
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
@@ -202,6 +225,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        audioDash.Play();
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale;
@@ -214,6 +238,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+        
     }
 
     private void Dashing()
@@ -221,6 +246,7 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.LeftShift)) && canDash)
         {
             StartCoroutine(Dash());
+
         }
     }
 

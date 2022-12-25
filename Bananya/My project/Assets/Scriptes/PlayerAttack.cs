@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 0.25f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject fireballs;
+    [SerializeField] private AudioSource audioAtk;
     private Animator anim;
     private PlayerMovement playerMovement;
     private float cooldownTimer = Mathf.Infinity;
@@ -21,7 +22,11 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButton(0) && cooldownTimer > attackCooldown && playerMovement.IsDeath())
+        {
             Attack();
+            
+        }
+            
 
         cooldownTimer += Time.deltaTime;
     }
@@ -30,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
     {
       //anim.SetTrigger("attack");
       cooldownTimer = 0;
+      audioAtk.Play();    
 
       GameObject fireballsMake = Instantiate(fireballs, firePoint.position, transform.rotation);
       fireballsMake.GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
