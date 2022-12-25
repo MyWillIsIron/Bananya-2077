@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,8 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sprite;
+    
 
-   
+
     private float horizontalDirection;
     [SerializeField] private float moveSpeed = 7f;
 
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     [SerializeField] private TrailRenderer tailDash;
+
 
     private enum MovementState { idle, run, jump, falling }; // Делаем переменную которая имеет все типы анимации, чтобы не писть кучу когда, т.к не может работать сразу 2 анимации падения и бега.
                                                              // private MovementState state = MovementState.idle; // по умолчанию анимация афк
@@ -81,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(Gamepad.all[0].leftStick.ReadValue() );
         if (isDashing)
         {
             return;
