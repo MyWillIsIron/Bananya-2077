@@ -34,13 +34,6 @@ public class Projectile : MonoBehaviour
         gameObject.SetActive(true);
         hit = false;
         boxCollider.enabled = true;
-
-        //float localScaleX = transform.localScale.x;
-        //if (Mathf.Sign(localScaleX) != _direction)
-        //    localScaleX = -localScaleX;
-
-        //transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
-
     }
     
 
@@ -66,7 +59,7 @@ public class Projectile : MonoBehaviour
 
         if (gameObject.CompareTag("Enemy")){
             Debug.Log('1');
-            gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            gameObject.GetComponent<EnemyLife>().TakeDamage(damage);
            
         }
     }
@@ -84,15 +77,8 @@ public class Projectile : MonoBehaviour
             boxCollider.enabled = false;
 
             anim.SetTrigger("exp");
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            collision.gameObject.GetComponent<EnemyLife>().TakeDamage(damage);
         }
-        
-        //if (collision.gameObject.CompareTag("Enemy"))
-        //{
-        //    collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
-        //    hit = true;
-        //    boxCollider.enabled = false;
-        //}
     }
 
     private void Deactivate()

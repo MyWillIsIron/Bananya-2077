@@ -9,6 +9,7 @@ TagManager:
   - item
   - Enemy
   - TrapSpike
+  - player
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - Enemies
   - 
   m_SortingLayers:

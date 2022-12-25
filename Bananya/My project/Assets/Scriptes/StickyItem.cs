@@ -13,9 +13,4 @@ public class StickyItem : MonoBehaviour
         }
 
     }
-
-
- 
-
-
 }

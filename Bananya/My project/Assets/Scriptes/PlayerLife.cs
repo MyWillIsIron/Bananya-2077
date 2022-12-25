@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,11 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private AudioSource deathSoundEffect;
 
     public int health = 3;
+
+    [SerializeField] private int numberOfFlashes = 2;
+    [SerializeField] private float iFramesDuration = 0.5f;
+    private SpriteRenderer spriteRend;
+
 
 
     private void Start()
@@ -35,8 +41,6 @@ public class PlayerLife : MonoBehaviour
     {
         health -= damage;
 
-        Debug.Log(health);
-
         if (health <= 0)
         {
             deathSoundEffect.Play();
@@ -50,7 +54,7 @@ public class PlayerLife : MonoBehaviour
 
     }
 
-    private IEnumerator damageSlowing()
+    private IEnumerator DamageSlowing()
     {
         //PlayerMovement speed = new PlayerMovement();
         PlayerMovement speed = GetComponent<PlayerMovement>();
@@ -60,11 +64,21 @@ public class PlayerLife : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         speed.MoveSpeed = originalSpeed;
         //Physics2D.IgnoreLayerCollision(10, 11, false);
+        for (int i = 0; i < numberOfFlashes; i++)
+        {
+
+            spriteRend.color = new Color(1, 1, 1, 0.6509804f);
+            yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
+            spriteRend.color = Color.white;
+            yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
+
+
+        }
     }
 
     private void Slowing()
     {
-        StartCoroutine(damageSlowing());
+        StartCoroutine(DamageSlowing());
     }
 
     private void Die()
@@ -73,8 +87,8 @@ public class PlayerLife : MonoBehaviour
         anim.SetTrigger("death");
     }
 
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    //private void RestartLevel()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 }

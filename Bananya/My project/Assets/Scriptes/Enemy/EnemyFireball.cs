@@ -12,7 +12,6 @@ public class EnemyFireball : MonoBehaviour
         targetPosition = FindObjectOfType<PlayerMovement>().transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);

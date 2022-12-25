@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
         set { moveSpeed = value; }
     }
 
-
     private bool isFacingRight = true;
 
     [SerializeField] private Transform checkground;

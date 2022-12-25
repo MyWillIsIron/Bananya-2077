@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyLife : MonoBehaviour
 {
     private Animator anim;
 
@@ -17,8 +17,6 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
         anim.SetTrigger("Enemy_GetDamage");
-
-        Debug.Log('2');
     }
 
     private void Update()
