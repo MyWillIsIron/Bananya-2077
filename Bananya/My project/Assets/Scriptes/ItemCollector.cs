@@ -22,15 +22,16 @@ public class ItemCollector : MonoBehaviour
             orangeText.text = "Cherries: " + countOrange;
         }
 
-
-        if (collision.gameObject.CompareTag("HearthItem"))
-        {
-            if(playerHeath.health < playerHeath.healthMax) {
-                gameObject.GetComponent<PlayerLife>().AddHealth();
-                collectorHearthSound.Play();
-                Destroy(collision.gameObject);
-            }
-        }
+        
+         if (collision.gameObject.CompareTag("HearthItem"))
+          {
+                if (playerHeath.health < playerHeath.healthMax)
+                {
+                    gameObject.GetComponent<PlayerLife>().AddHealth();
+                    collectorHearthSound.Play();
+                    Destroy(collision.gameObject);
+                }
+         }
     }
 }
 

@@ -11,6 +11,7 @@ TagManager:
   - TrapSpike
   - HearthItem
   - Arrow
+  - HeroBottom
   layers:
   - Default
   - TransparentFX

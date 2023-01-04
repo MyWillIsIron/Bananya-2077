@@ -13,7 +13,6 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private AudioSource deathSoundEffect;
     [SerializeField] private int numberOfFlashes;
     [SerializeField] private float iFramesDuration;
-    [SerializeField] GameObject legsCollider;
 
     [SerializeField] public int health = 3;
     public int healthMax;
@@ -68,8 +67,9 @@ public class PlayerLife : MonoBehaviour
         deathSoundEffect.Play();
         anim.SetTrigger("death");
         rb.bodyType = RigidbodyType2D.Static;
-       GetComponent<CircleCollider2D>().enabled = false;
-       legsCollider.GetComponent<BoxCollider2D>().enabled = false;
+     //  GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<PolygonCollider2D>().enabled = false;
+       // GetComponent<BoxCollider2D>().enabled = false;
     }
 
     private void RestartLevel()
