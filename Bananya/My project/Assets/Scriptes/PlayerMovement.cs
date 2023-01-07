@@ -11,7 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
 
     private float horizontalDirection;
-    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float moveSpeed;
+    public float MoveSpeed
+    { 
+        get { return moveSpeed; }
+        set { moveSpeed = value; }
+    }
+
 
     private bool isFacingRight = true;
 
@@ -25,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float extraJumpsForce = 10.0f; // = 0.5f
 
     private bool isWallSliding;
-    private float wallSlidingSpeed = 2f;
+    private float wallSlidingSpeed = 3f;
     [SerializeField] private Transform Wallcheck;
     [SerializeField] private LayerMask whatIsWall;
     [SerializeField] private float checkWallRadius = 0.2f;
@@ -34,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.05f;
+    private float wallJumpingDuration = 0.19f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
     private IEnumerator coroutine;
@@ -257,13 +263,11 @@ public class PlayerMovement : MonoBehaviour
         if (horizontalDirection > 0f)
         {
             state = MovementState.run;
-            //   sprite.flipX = false;
 
         }
         else if (horizontalDirection < 0f)
         {
             state = MovementState.run;
-            //  sprite.flipX = true;
         }
         else
         {
@@ -286,5 +290,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return rb.bodyType != RigidbodyType2D.Static;
     }
+
 
 }

@@ -8,6 +8,10 @@ TagManager:
   - Trap
   - item
   - Enemy
+  - TrapSpike
+  - HearthItem
+  - Arrow
+  - HeroBottom
   layers:
   - Default
   - TransparentFX
@@ -37,9 +41,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - TrapTrigger
+  - Player
+  - Enemies
   - 
   m_SortingLayers:
   - name: Background

@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private Animator anim;
 
     public int health = 3;
+
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
     public void TakeDamage(int damage)
     {
         health -= damage;
+        anim.SetTrigger("Enemy_GetDamage");
+
         Debug.Log('2');
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (health <= 0)
         {
+            //anim death
+            //disable enemy
             Destroy(gameObject);
         }
         

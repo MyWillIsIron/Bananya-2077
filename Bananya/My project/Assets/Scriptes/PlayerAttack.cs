@@ -33,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-      //anim.SetTrigger("attack");
+      anim.SetTrigger("Player_attack");
       cooldownTimer = 0;
       audioAtk.Play();    
 
