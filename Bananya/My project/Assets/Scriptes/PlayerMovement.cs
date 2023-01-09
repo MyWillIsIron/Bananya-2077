@@ -48,9 +48,12 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     [SerializeField] private TrailRenderer tailDash;
+
     [SerializeField] private AudioSource audioRun;
     [SerializeField] private AudioSource audioJump;
     [SerializeField] private AudioSource audioDash;
+
+    [SerializeField] private Collider2D border;
 
     private enum MovementState { idle, run, jump, falling }; // Делаем переменную которая имеет все типы анимации, чтобы не писть кучу когда, т.к не может работать сразу 2 анимации падения и бега.
                                                              // private MovementState state = MovementState.idle; // по умолчанию анимация афк
@@ -114,8 +117,30 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
         UpdateAnimationState();
+        
 
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if (collision.gameObject.CompareTag("OutOfBounds"))
+        {
+            Die();
+        } 
+    }
+    private void Die()
+    {
+        
+        anim.SetTrigger("death");
+        rb.bodyType = RigidbodyType2D.Static;
+        //  GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<PolygonCollider2D>().enabled = false;
+        // GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+
+
 
     private void Jumps()
     {
