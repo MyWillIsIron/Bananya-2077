@@ -10,7 +10,7 @@ public class PlayerLife : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer spriteRend;
-    [SerializeField] private AudioSource deathSoundEffect;
+    [SerializeField] private AudioSource AudioDeath;
     [SerializeField] private int numberOfFlashes;
     [SerializeField] private float iFramesDuration;
 
@@ -64,7 +64,7 @@ public class PlayerLife : MonoBehaviour
 
     private void Die()
     {
-        deathSoundEffect.Play();
+        AudioDeath.Play();
         anim.SetTrigger("death");
         rb.bodyType = RigidbodyType2D.Static;
      //  GetComponent<CircleCollider2D>().enabled = false;
