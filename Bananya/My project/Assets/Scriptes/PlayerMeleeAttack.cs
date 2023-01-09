@@ -12,7 +12,9 @@ public class PlayerMeleeAttack : MonoBehaviour
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private float attackCooldown = 0.55f;
     [SerializeField] private int damage = 1;
+    [SerializeField] AudioSource AudioMelee;
     private float cooldownTimer = Mathf.Infinity;
+
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     private void Attack()
     {
         //anim
+        AudioMelee.Play();  
         cooldownTimer = 0;
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
