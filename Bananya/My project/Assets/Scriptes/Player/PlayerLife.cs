@@ -37,6 +37,7 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        AudioDeath.Play();  
         health -= damage;
        
         if (health <= 0 )
