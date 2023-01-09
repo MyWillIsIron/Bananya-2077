@@ -48,11 +48,13 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
     [SerializeField] private TrailRenderer tailDash;
+    [SerializeField] private AudioSource audioRun;
+    [SerializeField] private AudioSource audioJump;
+    [SerializeField] private AudioSource audioDash;
 
     private enum MovementState { idle, run, jump, falling }; // Делаем переменную которая имеет все типы анимации, чтобы не писть кучу когда, т.к не может работать сразу 2 анимации падения и бега.
                                                              // private MovementState state = MovementState.idle; // по умолчанию анимация афк
 
-    [SerializeField] private AudioSource jumpSoundEffect; // подключаем звуковые эффекты
 
     private void Start()
     {
@@ -71,6 +73,16 @@ public class PlayerMovement : MonoBehaviour
         if (!isWallJumping)
         { 
             rb.velocity = new Vector2(moveSpeed * horizontalDirection, rb.velocity.y); 
+        }
+        if (audioRun.isPlaying == false)
+        {
+
+            if (horizontalDirection != 0 && IsGrounded()==true)
+            {
+                audioRun.Play();
+                
+
+            }
         }
     }
 
@@ -102,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
         UpdateAnimationState();
+
     }
 
     private void Jumps()
@@ -110,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true)
         {
-            jumpSoundEffect.Play();
+            audioJump.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
@@ -129,11 +142,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0 && IsGrounded() == false)
         {
+            audioJump.Play();
             rb.velocity = new Vector2(rb.velocity.x, extraJumpsForce);
             extraJumps--;
         }
         else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && IsGrounded() == true)
         {
+            audioJump.Play();
             rb.velocity = new Vector2(rb.velocity.x, extraJumpsForce);
         }
         if (IsGrounded() || IsWalled())
@@ -178,6 +193,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f)
         {
+            audioJump.Play();
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
@@ -199,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        audioDash.Play();
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale;
