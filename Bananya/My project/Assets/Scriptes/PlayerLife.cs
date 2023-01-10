@@ -34,6 +34,14 @@ public class PlayerLife : MonoBehaviour
             Die();
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("OutOfBounds"))
+        {
+            Die();
+        }
+    }
 
     public void TakeDamage(int damage)
     {

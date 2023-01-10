@@ -121,23 +121,8 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-        if (collision.gameObject.CompareTag("OutOfBounds"))
-        {
-            Die();
-        } 
-    }
-    private void Die()
-    {
-        
-        anim.SetTrigger("death");
-        rb.bodyType = RigidbodyType2D.Static;
-        //  GetComponent<CircleCollider2D>().enabled = false;
-        GetComponent<PolygonCollider2D>().enabled = false;
-        // GetComponent<BoxCollider2D>().enabled = false;
-    }
+    
+    
 
 
 
