@@ -10,6 +10,7 @@ public class Firetrap : MonoBehaviour
 
     [SerializeField] private int damage;
     [SerializeField] private GameObject FireTrapAnim;
+    [SerializeField] private AudioSource AudioFire;
 
     private float actuveTime = 2;
     private float cooldownActivation = 3;
@@ -32,6 +33,7 @@ public class Firetrap : MonoBehaviour
         cooldownActivation -= Time.deltaTime;
         if (cooldownActivation <= 0)
         {
+            AudioFire.Play();
             StartCoroutine(ActivateFiretrap());
         }
 
@@ -70,6 +72,7 @@ public class Firetrap : MonoBehaviour
         spriteRend.color = Color.white;
         activeTrap = true;
         anim.SetBool("activated", true);
+        
 
         yield return new WaitForSeconds(actuveTime);
         activeTrap = false;
