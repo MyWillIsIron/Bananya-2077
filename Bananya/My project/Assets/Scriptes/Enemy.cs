@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
 
     public int health = 3;
 
+    [SerializeField] private AudioSource audioBox;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private Transform checkground;
 
     private void Awake()
     {
@@ -30,5 +33,20 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            audioBox.Play();
+        }
+        if (IsGrounded())
+        {
+            audioBox.Play();
+        }
+    }
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(checkground.position, whatIsGround);
     }
 }

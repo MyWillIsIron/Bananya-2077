@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  AudioSaw: {fileID: 0}
+  AudioSaw: {fileID: 2801348061415096981}
 --- !u!70 &2558691163834477429
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4337621857871089486}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.07, z: -0}
+  m_LocalPosition: {x: -0.08, y: 0.07, z: -0}
   m_LocalScale: {x: 0.57142854, y: 0.57142854, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -205,8 +205,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b6428d4edb06344ba829da4edd9967c1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.129
-  m_Pitch: -0.45
+  m_Volume: 1
+  m_Pitch: 0.19
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -214,9 +214,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 8.276047
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -225,22 +225,22 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.99583435
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.1379557
+      outSlope: -1.1379557
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -249,7 +249,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
